@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class Session {
+
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
@@ -22,7 +23,7 @@ public class Session {
     @Column(
             nullable = false,
             unique = true,
-            length = 512
+            length = 500
     )
     private String token;
 
@@ -32,11 +33,15 @@ public class Session {
     private LocalDateTime expiration;
 
     @Column(
-            length = 6
+            name = "code_2fa",
+            length = 10
     )
     private String code2FA;
 
-    @ManyToOne
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            optional = false
+    )
     @JoinColumn(
             name = "user_id",
             nullable = false
