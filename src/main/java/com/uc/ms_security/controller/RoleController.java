@@ -1,13 +1,13 @@
 package com.uc.ms_security.controller;
 
-import com.uc.ms_security.dto.role.CreateRoleDTO;
+import com.uc.ms_security.dto.role.RoleRequestDTO;
 import com.uc.ms_security.dto.role.RoleResponseDTO;
-import com.uc.ms_security.dto.role.UpdateRoleDTO;
 import com.uc.ms_security.service.RoleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -19,7 +19,8 @@ public class RoleController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RoleResponseDTO create(@Valid @RequestBody CreateRoleDTO dto) {
+    public RoleResponseDTO create(
+            @Valid @RequestBody RoleRequestDTO dto) {
         return roleService.create(dto);
     }
 
@@ -29,14 +30,15 @@ public class RoleController {
     }
 
     @GetMapping("/{id}")
-    public RoleResponseDTO findById(@PathVariable Long id) {
+    public RoleResponseDTO findById(
+            @PathVariable Long id) {
         return roleService.findById(id);
     }
 
     @PutMapping("/{id}")
     public RoleResponseDTO update(
             @PathVariable Long id,
-            @Valid @RequestBody UpdateRoleDTO dto) {
+            @Valid @RequestBody RoleRequestDTO dto) {
         return roleService.update(id, dto);
     }
 
